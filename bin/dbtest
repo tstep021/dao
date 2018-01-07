@@ -1,0 +1,1 @@
+java -cp /opt/mycompanyApps/dbtest/lib/common-dao.jar:.:/opt/mycompanyApps/dbtest/lib/ojdbc14-10.2.0.2.jar:/opt/mycompanyApps/dbtest/lib/log4j-1.2.13.jar:/opt/mycompanyApps/dbtest/lib/Trap_0.9.2.jar -Dlog4j.configuration=file:/opt/mycompanyApps/dbtest/config/log4j.xml com.test.TestDB

@@ -1,0 +1,74 @@
+<project name="dao" default="all" basedir=".">
+
+	<!-- copyright: 2006-2013 mycompany   -->
+	<!-- version:   1.0                -->
+	  
+	<description>Data Access Objects API</description>
+		
+	<property name="build"    value="build"/>
+	<property name="lib"      value="lib"/>
+	<property name="src"      value="${basedir}/src"/>
+	<property name="deploy"   value="${build}/deploy"/>
+	<property name="classes"  value="${build}/classes"/>
+	<property name="javadoc"  value="javadoc"/>
+	
+	<!-- ##################### Compile Options ################## -->		
+	<property name="compile.debug"       value="false"/>
+	<property name="compile.deprecation" value="false"/>
+	<property name="compile.optimize"    value="true"/>
+	
+	<!-- the target jar file -->
+	<property name="dao_jar" value="${deploy}/common-ecs-dao.jar"/>
+	
+	<!-- ##################### classpath ######################## -->
+	<path id="compile.classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar"/>
+		</fileset>
+		
+		<pathelement location="${classes}"/>
+	</path>
+
+	<!-- ######################## ant all ######################## -->
+	<target name="all"  depends="prepare, compile, deploy" description="Clean, compile and deploy"/>
+
+	<!-- ######################## ant clean ###################### -->
+	<target name="clean" description="Delete old build files and directories">
+		<delete dir="${build}">
+			<include name="*.jar" />
+		</delete>
+	</target>
+
+	<!-- ####################### ant prepare #################### -->
+	<target name="prepare" description="prepare source code">		
+		<mkdir dir="${build}"/>
+		<mkdir dir="${classes}"/>	
+		<mkdir dir="${deploy}"/>
+		
+		<copy todir="${deploy}">
+			<fileset dir="${lib}" />
+		</copy>	
+	</target>
+
+	<!-- ###################### ant compile ##################### -->
+	<target name="compile" description="Compile source code">   		
+    	<javac srcdir="${src}/com" 
+    			destdir="${classes}" 
+    			debug="${compile.debug}" 
+    			deprecation="${compile.deprecation}" 
+    			optimize="${compile.optimize}">
+    		
+			<classpath refid="compile.classpath" />
+    		<exclude name="${build}" />
+    		<exclude name="${javadoc}" />
+    		
+		</javac>
+	</target>
+	
+	  <!-- ################## and deploy ######################## -->
+	  <target name="deploy" description="put all the classes into a JAR file"> 
+		<jar jarfile="${dao_jar}" basedir="${classes}">	  		
+		  	</jar> 
+	  </target>	 	
+
+</project>
